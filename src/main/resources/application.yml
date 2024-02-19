@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/journal
+    username: postgres
+    password: 12345
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+  graphql:
+    cors:
+      allowed-methods: GET, POST, PATCH, PUT, DELETE, OPTIONS, HEAD
+springdoc:
+  swagger-ui:
+    path: /swagger-ui/index.html
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+
+server:
+  port: 8001
