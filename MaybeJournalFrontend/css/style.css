@@ -1,0 +1,33 @@
+.row.table-head {
+    color: #fff;
+    background: #71b802;
+    padding: 1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.row.striped {
+    color: #000;
+    padding: 1rem;
+    background: #90ea02;
+}
+
+.row.striped:nth-child(odd) {
+    background: #c6fe6e;
+}
+
+.row.striped:focus,
+.row.striped:hover {
+    background: #bcfd55;
+}
+
+.schedule-groups {
+    max-width: 55%;
+    word-wrap: normal;
+}
+
+@media (max-width: 767.98px) {
+    row.table-head {
+        display: none;
+    }
+}
