@@ -33,4 +33,7 @@ public class Student {
             inverseJoinColumns = @JoinColumn(name = "group_id")
     )
     private List<Group> groups;
+
+    @OneToMany(mappedBy = "student")
+    private List<Attendance> studentAttendances;
 }

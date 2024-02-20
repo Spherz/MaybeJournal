@@ -10,9 +10,7 @@ import java.time.LocalDate;
 public class AttendanceResponseDTO {
     private Long attendanceId;
 
-    private String student;
-
-    private String group;
+    private Long studentId;
 
     private LocalDate attendanceDate;
 

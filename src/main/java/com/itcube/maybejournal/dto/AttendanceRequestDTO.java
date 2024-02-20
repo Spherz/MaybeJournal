@@ -13,8 +13,6 @@ public class AttendanceRequestDTO {
 
     private String student;
 
-    private String group;
-
     private LocalDate attendanceDate;
 
     private String presence;

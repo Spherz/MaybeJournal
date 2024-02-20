@@ -1,10 +1,9 @@
 package com.itcube.maybejournal.controller;
 
+import com.itcube.maybejournal.dto.AttendanceRequestDTO;
 import com.itcube.maybejournal.dto.AttendanceResponseDTO;
 import com.itcube.maybejournal.service.AttendanceService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,5 +20,10 @@ public class AttendanceController {
     @GetMapping("/attendance")
     public List<AttendanceResponseDTO> getAllAttendance() {
         return attendanceService.getAllAttendance();
+    }
+
+    @PostMapping("/students/{studentId}/add-attendance")
+    public AttendanceResponseDTO addAttendance(@PathVariable("studentId") Long id, @RequestBody AttendanceRequestDTO attendanceRequestDTO) {
+        return attendanceService.addAttendance(id, attendanceRequestDTO);
     }
 }
