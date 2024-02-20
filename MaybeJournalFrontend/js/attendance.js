@@ -13,8 +13,20 @@ function getAllGroups() {
 }
 
 document.getElementById('groups-dropdown').addEventListener('change', function() {
-    filterStudentByGroup(this.value, getGroupLessonDate(this.value));
+    getGroupLessonDate(this.value).then(() => filterStudentByGroup(this.value));
 });
+
+function test(groupId) {
+    getGroupLessonDate(groupId)
+    .then(dates => {
+        return fetch(`http://127.0.0.1:8001/api/groups/${groupId}/students`)
+        .then(response => response.json())
+        .then(students => {
+            displayStudents(students, dates);
+        })
+        .catch(error => console.error('Ошибка: ', error));
+    });
+}
 
 function fillGroupsDropdown(groups) {
     const groupsDropdown = document.getElementById('groups-dropdown');
@@ -34,16 +46,17 @@ function fillGroupsDropdown(groups) {
 }
 
 function getGroupLessonDate(groupId) {
-    fetch(`http://127.0.0.1:8001/api/${groupId}/generate-dates?numLessons=${2}`)
+    return fetch(`http://127.0.0.1:8001/api/${groupId}/generate-dates?numLessons=${2}`)
         .then(response => response.json())
         .then(dates => {
             displayGroupDates(dates);
+            return dates;
         })
         .catch(error => console.error('Ошибка: ', error));
 }
 
 function filterStudentByGroup(groupId) {
-    fetch(`http://127.0.0.1:8001/api/groups/${groupId}/students`)
+    return fetch(`http://127.0.0.1:8001/api/groups/${groupId}/students`)
         .then(response => response.json())
         .then(students => {
             displayStudents(students, getGroupLessonDate(groupId));
@@ -55,37 +68,25 @@ function displayGroupDates(dates) {
     const groupLessonDates = document.getElementById('dates');
     const tempCol = document.createElement('div');
     const rowStriped = document.getElementById('row-striped');
-    const maxLength = 1;
+
 
     tempCol.className = 'col-2';
     groupLessonDates.appendChild(tempCol);
     
     dates.forEach(date => {
         const lessonDate = document.createElement('div');
-        const presenceCol = document.createElement('div');
-        const student = document.getElementById('student');
 
         lessonDate.innerHTML = date;
         lessonDate.className = 'col-2';
-        presenceCol.className = 'col-2';
-        presenceCol.setAttribute('data-value', date);
-        presenceCol.contentEditable = true;
 
-        presenceCol.addEventListener('input', function() {
-            if(presenceCol.innerText.length > maxLength) {
-                presenceCol.innerText = presenceCol.innerText.slice(0, maxLength);
-            }
-            console.log(student.getAttribute('data-value'));
-        });
-
-        rowStriped.appendChild(presenceCol);
         groupLessonDates.appendChild(lessonDate);
     });
 }
 
-function displayStudents(students, getGroupLessonDate) {
+function displayStudents(students, dates) {
     const studentAttendanceList = document.getElementById('students-attendance');
     const rowTableHead = document.createElement('div');
+    const maxLength = 1;
 
     rowTableHead.className = 'row table-head';
     rowTableHead.id = 'dates';
@@ -97,7 +98,6 @@ function displayStudents(students, getGroupLessonDate) {
     students.forEach(student => {
         const rowStriped = document.createElement('div');
         const studentFullName = document.createElement('div');
-        const presenseCol = document.createElement('div');
 
         rowStriped.className = 'row striped';
         rowStriped.id = 'row-striped';
@@ -107,7 +107,25 @@ function displayStudents(students, getGroupLessonDate) {
         studentFullName.setAttribute('data-value', student.studentId);
 
         studentFullName.className = 'col-2';
-        presenseCol.className = 'col-2';
+
+        dates.then((data) => {
+            data.forEach((item) => {
+                const presenceCol = document.createElement('div');
+
+                presenceCol.className = 'col-2';
+                presenceCol.setAttribute('data-value', item);
+                presenceCol.contentEditable = true;
+
+                presenceCol.addEventListener('input', function() {
+                    if(presenceCol.innerText.length > maxLength) {
+                        presenceCol.innerText = presenceCol.innerText.slice(0, maxLength);
+                    }
+                    console.log(studentFullName.getAttribute('data-value'));
+                });
+
+                rowStriped.appendChild(presenceCol);
+            });
+        });
 
         rowStriped.appendChild(studentFullName);
 
