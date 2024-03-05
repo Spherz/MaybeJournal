@@ -12,6 +12,8 @@ public class AttendanceResponseDTO {
 
     private Long studentId;
 
+    private Long groupId;
+
     private LocalDate attendanceDate;
 
     private String presence;

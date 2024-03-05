@@ -35,6 +35,14 @@ public class AttendanceService {
                 .collect(Collectors.toList());
     }
 
+    public List<AttendanceResponseDTO> getAttendanceByGroupId(Long groupId) {
+        List<Attendance> attendances = attendanceRepository.findAttendanceByGroupId(groupId);
+        return attendances
+                .stream()
+                .map(this::mapAttendanceToResponseDTO)
+                .collect(Collectors.toList());
+    }
+
     public AttendanceResponseDTO addAttendance(Long id, AttendanceRequestDTO attendanceRequestDTO) {
         Attendance attendance = new Attendance();
 
@@ -60,6 +68,7 @@ public class AttendanceService {
 
         responseDTO.setAttendanceId(attendance.getId());
         responseDTO.setStudentId(attendance.getStudent().getId());
+        responseDTO.setGroupId(attendance.getGroup().getId());
         responseDTO.setAttendanceDate(attendance.getAttendanceDate());
         responseDTO.setPresence(attendance.getPresence());
 

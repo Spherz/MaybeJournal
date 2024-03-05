@@ -23,6 +23,10 @@ public class Attendance {
     @JoinColumn(name = "student_id")
     private Student student;
 
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "group_id")
+    private Group group;
+
     private LocalDate attendanceDate;
 
     private String presence;

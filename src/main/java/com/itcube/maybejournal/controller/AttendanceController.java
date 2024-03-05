@@ -22,6 +22,11 @@ public class AttendanceController {
         return attendanceService.getAllAttendance();
     }
 
+    @GetMapping("/attendance/{groupId}")
+    public List<AttendanceResponseDTO> getAttendanceByGroup(@PathVariable("groupId") Long groupId) {
+        return attendanceService.getAttendanceByGroupId(groupId);
+    }
+
     @PostMapping("/students/{studentId}/add-attendance")
     public AttendanceResponseDTO addAttendance(@PathVariable("studentId") Long id, @RequestBody AttendanceRequestDTO attendanceRequestDTO) {
         return attendanceService.addAttendance(id, attendanceRequestDTO);
