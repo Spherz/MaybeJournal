@@ -31,7 +31,7 @@ public class Attendance {
 
     private OffsetDateTime attendanceDate;
 
-    private String presence;
+    private String presence = "";
 
     @Override
     public final boolean equals(Object o) {

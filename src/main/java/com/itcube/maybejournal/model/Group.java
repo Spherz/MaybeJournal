@@ -1,5 +1,6 @@
 package com.itcube.maybejournal.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,6 +25,7 @@ public class Group {
     private String name;
 
     @ManyToMany(mappedBy = "groups", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonBackReference
     private List<Student> students;
 
     @Override
