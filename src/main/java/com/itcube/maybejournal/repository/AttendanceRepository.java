@@ -1,6 +1,6 @@
 package com.itcube.maybejournal.repository;
 
-import com.itcube.maybejournal.entity.Attendance;
+import com.itcube.maybejournal.model.Attendance;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

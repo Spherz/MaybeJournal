@@ -1,7 +1,5 @@
-package com.itcube.maybejournal.dto;
+package com.itcube.maybejournal.dto.group;
 
-import com.itcube.maybejournal.entity.Group;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,4 +1,4 @@
-package com.itcube.maybejournal.dto;
+package com.itcube.maybejournal.dto.schedule;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,7 +1,5 @@
-package com.itcube.maybejournal.dto;
+package com.itcube.maybejournal.dto.student;
 
-import com.itcube.maybejournal.entity.Student;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 

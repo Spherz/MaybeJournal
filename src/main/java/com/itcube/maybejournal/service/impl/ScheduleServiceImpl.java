@@ -1,9 +1,10 @@
-package com.itcube.maybejournal.service;
+package com.itcube.maybejournal.service.impl;
 
-import com.itcube.maybejournal.dto.ScheduleResponseDTO;
-import com.itcube.maybejournal.entity.Schedule;
+import com.itcube.maybejournal.dto.schedule.ScheduleResponseDTO;
+import com.itcube.maybejournal.model.Schedule;
 import com.itcube.maybejournal.repository.ScheduleRepository;
-import org.springframework.cglib.core.Local;
+import com.itcube.maybejournal.service.ScheduleService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
@@ -14,13 +15,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class ScheduleService {
+@RequiredArgsConstructor
+public class ScheduleServiceImpl implements ScheduleService {
 
     private final ScheduleRepository scheduleRepository;
-
-    public ScheduleService(ScheduleRepository scheduleRepository) {
-        this.scheduleRepository = scheduleRepository;
-    }
 
     public List<ScheduleResponseDTO> getScheduleByGroupId(Long groupId) {
         List<Schedule> schedule = scheduleRepository.findByGroupId(groupId);

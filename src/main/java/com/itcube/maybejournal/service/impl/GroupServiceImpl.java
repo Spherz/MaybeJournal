@@ -1,10 +1,12 @@
-package com.itcube.maybejournal.service;
+package com.itcube.maybejournal.service.impl;
 
-import com.itcube.maybejournal.dto.GroupRequestDTO;
-import com.itcube.maybejournal.dto.GroupResponseDTO;
-import com.itcube.maybejournal.entity.Group;
-import com.itcube.maybejournal.entity.Student;
+import com.itcube.maybejournal.dto.group.GroupRequestDTO;
+import com.itcube.maybejournal.dto.group.GroupResponseDTO;
+import com.itcube.maybejournal.model.Group;
+import com.itcube.maybejournal.model.Student;
 import com.itcube.maybejournal.repository.GroupRepository;
+import com.itcube.maybejournal.service.GroupService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -13,13 +15,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class GroupService {
+@RequiredArgsConstructor
+public class GroupServiceImpl implements GroupService {
 
     private final GroupRepository groupRepository;
-
-    public GroupService(GroupRepository groupRepository) {
-        this.groupRepository = groupRepository;
-    }
 
     public GroupResponseDTO createGroup(GroupRequestDTO groupRequestDTO) {
         Group group = new Group();

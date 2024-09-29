@@ -1,4 +1,4 @@
-package com.itcube.maybejournal.dto;
+package com.itcube.maybejournal.dto.attendance;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,12 +1,14 @@
-package com.itcube.maybejournal.service;
+package com.itcube.maybejournal.service.impl;
 
-import com.itcube.maybejournal.dto.GroupResponseDTO;
-import com.itcube.maybejournal.dto.StudentRequestDTO;
-import com.itcube.maybejournal.dto.StudentResponseDTO;
-import com.itcube.maybejournal.entity.Group;
-import com.itcube.maybejournal.entity.Student;
+import com.itcube.maybejournal.dto.group.GroupResponseDTO;
+import com.itcube.maybejournal.dto.student.StudentRequestDTO;
+import com.itcube.maybejournal.dto.student.StudentResponseDTO;
+import com.itcube.maybejournal.model.Group;
+import com.itcube.maybejournal.model.Student;
 import com.itcube.maybejournal.repository.GroupRepository;
 import com.itcube.maybejournal.repository.StudentRepository;
+import com.itcube.maybejournal.service.StudentService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -15,16 +17,12 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class StudentService {
+@RequiredArgsConstructor
+public class StudentServiceImpl implements StudentService {
 
     private final StudentRepository studentRepository;
 
     private final GroupRepository groupRepository;
-
-    public StudentService(StudentRepository studentRepository, GroupRepository groupRepository) {
-        this.studentRepository = studentRepository;
-        this.groupRepository = groupRepository;
-    }
 
     private StudentResponseDTO mapStudentToResponseDTO(Student student) {
         StudentResponseDTO responseDTO = new StudentResponseDTO();
@@ -67,23 +65,21 @@ public class StudentService {
 
         if(studentOptional.isPresent()) {
             Student student = studentOptional.get();
-            List<GroupResponseDTO> groupResponseDTOs = student.getGroups()
+
+            return student.getGroups()
                     .stream()
                     .map(this::mapGroupToResponseDTO)
                     .collect(Collectors.toList());
-
-            return groupResponseDTOs;
         } else {
             return Collections.emptyList();
         }
     }
 
     public List<StudentResponseDTO> getStudentsByGroupId(Long groupId) {
-        List<StudentResponseDTO> studentsByGroup = studentRepository.findByGroupId(groupId)
+        return studentRepository.findByGroupId(groupId)
                 .stream()
                 .map(this::mapStudentToResponseDTO)
                 .collect(Collectors.toList());
-        return studentsByGroup;
     }
 
     public Optional<StudentResponseDTO> getStudentById(Long studentId) {
